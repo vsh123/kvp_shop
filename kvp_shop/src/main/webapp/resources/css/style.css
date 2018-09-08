@@ -1,0 +1,181 @@
+@CHARSET "UTF-8";
+
+/* main */
+html,body{
+    min-height:100%;
+}
+div#main-container{
+    /* min-width:100%; */
+    position: relative;
+    margin-bottom: 50px;
+}
+section {
+	min-height:100%;
+	width: 980px;
+	margin: 0 auto;
+}
+
+
+/* footer */
+footer{
+    clear: both;
+    position: relative;
+    width:100%;
+    background: lightgray;
+}
+footer p {
+    margin:0 auto;
+    width:980px;
+    text-align: left;
+}
+
+
+
+
+/* button */
+.btn-transparent {
+	background: transparent;
+	border-color: transparent;
+}
+
+
+
+/* focus */
+.focus-none:focus {
+	box-shadow: none;
+}
+
+
+
+/* border */
+.border0 {
+	border : 0;
+}
+.borderBottom {
+	border: 0;
+	border-radius: 0;
+	border-bottom: 1px solid gray; 
+}
+.boder-transparent{
+	border: 0;
+}
+.tblBorderBottom {
+	border-bottom: 1px solid #e9ecef;
+}
+
+
+
+/* margin */
+.marginR10 {
+	margin-right: 10px;
+}
+.marginL20 {
+	margin-left: 20px;
+}
+.marginTop0 {
+	margin-top: 0;
+}
+.margin0auto {
+	margin: 0 auto;
+}
+.marginTop100 {
+	margin-top: 100px;
+}
+.marginBottom0 {
+	margin-bottom: 0;
+}
+
+
+
+/* padding */
+.paddingTop50 {
+	padding-top: 50px;
+}
+.paddingBottom50 {
+	padding-bottom: 50px;
+}
+
+
+
+/* display */
+.inline {
+	display: inline !important;
+}
+.none {
+	display: none !important;
+}
+.inline-block {
+	display: inline-block !important;
+}
+
+
+/* width */
+.width95p {
+	width: 95%;
+}
+.width100p {
+	width: 100%;
+}
+.width150 {
+	width: 150px;
+}
+.width300 {
+	width: 300px;
+}
+.width33p {
+	width: 33%;
+}
+.width50p {
+	width: 50%;
+}
+.width400 {
+	width: 400px;
+}
+.width60 {
+	width: 60px;
+}
+
+
+
+/* color */
+.red {
+	color: red;
+}
+.green {
+	color: green;
+}
+
+
+/* textAlign */
+.textAlignCenter {
+	text-align: center;
+}
+
+
+
+/* verticalAlign */	
+.verticalTop {
+	vertical-align: top;
+}
+
+
+
+/* float */ 
+.floatRight {
+	float: right;
+}
+
+
+
+/* 장바구니 리스트  */ 
+#tblBasketList td {
+	vertical-align: middle;
+}
+
+
+
+/* 도서 이미지 크기 */ 
+.bookImage {
+	width: 90px;
+	height: 120px;
+}

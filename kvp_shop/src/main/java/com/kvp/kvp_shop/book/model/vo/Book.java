@@ -9,13 +9,13 @@ public class Book {
 	private int bookPage;
 	private int bookPrice;
 	private int discount;
-	private String bookCategory;
+	private int categoryNo;
 	private String bookImage;
 	
 	public Book() {}
 
-	public Book(String isbn, String writerName, String bookTitle, String bookPublisher, String bookIssueDate, int bookPage,
-			int bookPrice, int discount, String bookCategory, String bookImage) {
+	public Book(String isbn, String writerName, String bookTitle, String bookPublisher, String bookIssueDate,
+			int bookPage, int bookPrice, int discount, int categoryNo, String bookImage) {
 		super();
 		this.isbn = isbn;
 		this.writerName = writerName;
@@ -25,7 +25,7 @@ public class Book {
 		this.bookPage = bookPage;
 		this.bookPrice = bookPrice;
 		this.discount = discount;
-		this.bookCategory = bookCategory;
+		this.categoryNo = categoryNo;
 		this.bookImage = bookImage;
 	}
 
@@ -93,12 +93,12 @@ public class Book {
 		this.discount = discount;
 	}
 
-	public String getBookCategory() {
-		return bookCategory;
+	public int getCategoryNo() {
+		return categoryNo;
 	}
 
-	public void setBookCategory(String bookCategory) {
-		this.bookCategory = bookCategory;
+	public void setCategoryNo(int categoryNo) {
+		this.categoryNo = categoryNo;
 	}
 
 	public String getBookImage() {
@@ -113,7 +113,7 @@ public class Book {
 	public String toString() {
 		return "Book [isbn=" + isbn + ", writerName=" + writerName + ", bookTitle=" + bookTitle + ", bookPublisher="
 				+ bookPublisher + ", bookIssueDate=" + bookIssueDate + ", bookPage=" + bookPage + ", bookPrice="
-				+ bookPrice + ", discount=" + discount + ", bookCategory=" + bookCategory + ", bookImage=" + bookImage
+				+ bookPrice + ", discount=" + discount + ", categoryNo=" + categoryNo + ", bookImage=" + bookImage
 				+ "]";
 	}
 }

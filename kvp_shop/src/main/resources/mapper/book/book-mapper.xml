@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="book">
+	<insert id="insertbook">
+		INSERT INTO BOOK 
+		VALUES (#{isbn},
+			   #{writerName},
+			   #{bookTitle},
+			   #{bookPublisher},
+			   #{bookIssueDate},
+			   #{bookPage},
+			   #{bookPrice},
+			   #{discount},
+			   0,
+			   #{bookImage},
+			   #{bookInfo})
+	</insert>
+	
+	<select id="exist" resultType="_int">
+		SELECT COUNT(*) AS COUNT 
+		FROM book 
+		WHERE isbn = #{isbn}
+	</select>
+	
+	<select id="findbook" resultMap="book">
+		SELECT * 
+		FROM book 
+		WHERE isbn = #{isbn}
+	</select>
+	
+	
+	<resultMap type="book" id="book">
+		<result column="isbn" property="isbn"/>
+		<result column="writer_name" property="writerName"/>
+		<result column="BOOK_TITLE" property="bookTitle"/>
+		<result column="BOOK_PUBLISHER" property="bookPublisher"/>
+		<result column="BOOK_ISSUE_DATE" property="bookIssueDate"/>
+		<result column="BOOK_PAGE" property="bookPage"/>
+		<result column="BOOK_PRICE" property="bookPrice"/>
+		<result column="DISCOUNT" property="discount"/>
+		<result column="BOOK_CATEGORY" property="bookCategory"/>
+		<result column="BOOK_IMAGE" property="bookImage"/>
+		<result column="BOOK_INFO" property="bookInfo"/>
+	</resultMap>
+</mapper>

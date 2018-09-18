@@ -4,6 +4,7 @@
 	<select id="selectBasketList" resultMap="basketBook">
 		SELECT * FROM BASKET B
  		LEFT JOIN BOOK BO ON B.ISBN = BO.ISBN
+ 		LEFT JOIN CATEGORY_STRUCTURE C ON BO.CATEGORY_NO = C.CATEGORY_NO
  		WHERE B.MEMBER_ID = #{memberId}
  		ORDER BY BASKET_NO DESC
 	</select>
@@ -14,12 +15,9 @@
 		<result column="book_amount" property="bookAmount"/>
 		<result column="writer_name" property="writerName"/>
 		<result column="book_title" property="bookTitle"/>
-		<!-- <result column="book_publisher" property="bookPublisher"/>
-		<result column="book_issue_date" property="bookIssueDate"/>
-		<result column="book_page" property="bookPage"/> -->
 		<result column="book_price" property="bookPrice"/>
 		<result column="discount" property="discount"/>
-		<result column="book_category" property="bookCategory"/>
+		<result column="category_name" property="categoryName"/>
 		<result column="book_image" property="bookImage"/>
 	</resultMap>
 	
@@ -28,4 +26,16 @@
 		SET BOOK_AMOUNT = #{bookAmount}
 		WHERE BASKET_NO = #{basketNo}
 	</update>
+	
+	<delete id="deleteBasket">
+		DELETE FROM BASKET
+		WHERE BASKET_NO = #{basketNo}
+	</delete>
+	
+	<select id="selectOneBasketBook" resultMap="basketBook">
+		SELECT * FROM BASKET B
+		LEFT JOIN BOOK BO ON B.ISBN = BO.ISBN
+		LEFT JOIN CATEGORY_STRUCTURE C ON BO.CATEGORY_NO = C.CATEGORY_NO
+		WHERE B.BASKET_NO = #{basketNo}
+	</select>
 </mapper>

@@ -49,4 +49,45 @@
 		<result column="member_connect" property="memberConnect"/>
 		<result column="member_grade" property="memberGrade"/>
 	</resultMap>
+	
+	<select id="selectOneMemberAddressById" resultMap="memberAddress">
+		SELECT * 
+		FROM MEMBER M 
+		LEFT JOIN ADDRESS A ON M.MEMBER_ID = A.MEMBER_ID
+		WHERE A.ADDRESS_LEVEL=1 AND M.MEMBER_ID = #{memberId}
+	</select>
+	<resultMap type="memberAddress" id="memberAddress">
+		<result column="member_id" property="memberId"/>
+		<result column="member_password" property="memberPassword"/>
+		<result column="member_name" property="memberName"/>
+		<result column="member_gender" property="memberGender"/>
+		<result column="member_birthday" property="memberBirthday"/>
+		<result column="member_phone" property="memberPhone"/>
+		<result column="member_email" property="memberEmail"/>
+		<result column="member_enrolldate" property="memberEnrolldate"/>
+		<result column="member_connect" property="memberConnect"/>
+		<result column="member_grade" property="memberGrade"/>
+		<result column="address_no" property="addressNo"/>
+		<result column="zip_code" property="zipCode"/>
+		<result column="road_address" property="roadAddress"/>
+		<result column="loc_address" property="locAddress"/>
+		<result column="detail_address" property="detailAddress"/>
+		<result column="address_level" property="addressLevel"/>
+	</resultMap>
+	
+	<select id="selectAddressList" resultMap="address">
+		SELECT *
+		FROM ADDRESS 
+		WHERE MEMBER_ID = #{memberId}
+		ORDER BY ADDRESS_NO
+	</select>
+	<resultMap type="address" id="address">
+		<result column="address_no" property="addressNo"/>
+		<result column="member_id" property="memberId"/>
+		<result column="zip_code" property="zipCode"/>
+		<result column="road_address" property="roadAddress"/>
+		<result column="loc_address" property="locAddress"/>
+		<result column="detail_address" property="detailAddress"/>
+		<result column="address_level" property="addressLevel"/>
+	</resultMap>
 </mapper>

@@ -14,4 +14,10 @@ public interface BasketService {
 	// 장바구니 목록에서 도서 수량 변경
 	int updateBasket(Map<String, Integer> map);
 
+	// 장바구니 목록에서 도서 삭제
+	int deleteBasket(int basketNo);
+
+	// 장바구니 번호로 도서정보 찾기
+	BasketBook selectOneBasketBook(int basketNo);
+
 }

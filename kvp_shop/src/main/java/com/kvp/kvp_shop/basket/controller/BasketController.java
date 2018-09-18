@@ -46,9 +46,11 @@ public class BasketController {
 		return mav;
 	}
 
-	@RequestMapping("/basket/updateBasket.do")
+	@RequestMapping("/basket/updateBasket.do") 
 	@ResponseBody
-	public String updateBasket(@RequestParam(value="basketNo") int basketNo, @RequestParam(value="bookAmount") int bookAmount) {
+	public Map<String, Integer> updateBasket(@RequestParam(value="basketNo") int basketNo, @RequestParam(value="bookAmount") int bookAmount) {
+		if(logger.isDebugEnabled())
+			logger.debug("장바구니 수량 변경");
 		
 		Map<String, Integer> map = new HashMap<String, Integer>();
 		
@@ -57,6 +59,28 @@ public class BasketController {
 		
 		basketService.updateBasket(map);
 		
-		return "redirect:/";
+		return map;
+	}
+	
+	@RequestMapping("/basket/deleteBasket.do")
+	public ModelAndView deleteBasket(@RequestParam(value="basketNo") String basketNo) {
+		if(logger.isDebugEnabled())
+			logger.debug("장바구니 상품 삭제");
+		
+		ModelAndView mav = new ModelAndView();
+		
+		if(!basketNo.contains("/")) {
+			basketService.deleteBasket(Integer.parseInt(basketNo));
+		}
+		else {
+			String[] basketNoList = basketNo.split("/");
+			for(int i=0; i<basketNoList.length; i++) {
+				basketService.deleteBasket(Integer.parseInt(basketNoList[i]));
+			}
+		}		
+		
+		mav.setViewName("/basket/basketList");
+		
+		return mav;
 	}
 }

@@ -4,5 +4,6 @@
 	 <typeAliases>
 	 	<typeAlias type="com.kvp.kvp_shop.member.model.vo.Member" alias="member"/>
 	 	<typeAlias type="com.kvp.kvp_shop.basket.model.vo.BasketBook" alias="basketBook"/>
+	 	<typeAlias type="com.kvp.kvp_shop.book.model.vo.Book" alias="book"/>
 	 </typeAliases>
 </configuration>

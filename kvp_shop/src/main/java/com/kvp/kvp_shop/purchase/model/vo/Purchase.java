@@ -13,12 +13,12 @@ public class Purchase {
 	private String detailAddress;
 	private String purchaseCode;
 	private String isOld;
-	private String memberId;
+	private Date cancelDate;
 	
 	public Purchase() {}
 
 	public Purchase(int purchaseNo, String isbn, int bookAmount, Date purchaseDate, String zipCode, String roadAddress,
-			String locAddress, String detailAddress, String purchaseCode, String isOld, String memberId) {
+			String locAddress, String detailAddress, String purchaseCode, String isOld, Date cancelDate) {
 		super();
 		this.purchaseNo = purchaseNo;
 		this.isbn = isbn;
@@ -30,7 +30,7 @@ public class Purchase {
 		this.detailAddress = detailAddress;
 		this.purchaseCode = purchaseCode;
 		this.isOld = isOld;
-		this.memberId = memberId;
+		this.cancelDate = cancelDate;
 	}
 
 	public int getPurchaseNo() {
@@ -113,12 +113,12 @@ public class Purchase {
 		this.isOld = isOld;
 	}
 
-	public String getMemberId() {
-		return memberId;
+	public Date getCancelDate() {
+		return cancelDate;
 	}
 
-	public void setMemberId(String memberId) {
-		this.memberId = memberId;
+	public void setCancelDate(Date cancelDate) {
+		this.cancelDate = cancelDate;
 	}
 
 	@Override
@@ -126,6 +126,6 @@ public class Purchase {
 		return "Purchase [purchaseNo=" + purchaseNo + ", isbn=" + isbn + ", bookAmount=" + bookAmount
 				+ ", purchaseDate=" + purchaseDate + ", zipCode=" + zipCode + ", roadAddress=" + roadAddress
 				+ ", locAddress=" + locAddress + ", detailAddress=" + detailAddress + ", purchaseCode=" + purchaseCode
-				+ ", isOld=" + isOld + ", memberId=" + memberId + "]";
+				+ ", isOld=" + isOld + ", cancelDate=" + cancelDate + "]";
 	}
 }

@@ -1,6 +1,7 @@
 package com.kvp.kvp_shop.member.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.slf4j.Logger;
@@ -18,7 +19,9 @@ import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kvp.kvp_shop.member.model.service.MemberService;
+import com.kvp.kvp_shop.member.model.vo.Address;
 import com.kvp.kvp_shop.member.model.vo.Member;
+import com.kvp.kvp_shop.member.model.vo.MemberAddress;
 
 
 @SessionAttributes("memberLoggedIn")
@@ -143,4 +146,26 @@ public class MemberController {
 		
 		return "redirect:/";
 	}
+	
+	@RequestMapping("/member/selectAddress.do")
+	@ResponseBody
+	public MemberAddress selectAddress(@RequestParam("memberId") String memberId) {
+		if(logger.isDebugEnabled())
+			logger.debug("레벨 1인 주소 요청");
+		
+		MemberAddress ad = memberService.selectOneMemberAddressById(memberId);
+		
+		return ad;
+	}
+	
+	@RequestMapping("/member/selectAddressList.do")
+	public ModelAndView selectAddressList(@RequestParam(value="memberId") String memberId) {
+		ModelAndView mav = new ModelAndView();
+		
+		List<Address> addressList = memberService.selectAddressList(memberId);
+		
+		mav.addObject("addressList", addressList);
+		
+		return mav;
+	} 
 }

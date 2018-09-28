@@ -29,7 +29,7 @@
 			
 			<!--  선호 검색 개발 중! -->
 			<div class="inline-block width33p textAlignCenter">
-				<div class="width50p margin0auto">
+				<div class="width300 margin0auto">
 				<form class="form-inline mt-2" action="${pageContext.request.contextPath}/book/booksearch.do">
 					  	<input class="form-control mr-sm-2" type="text" placeholder="Search" name="search" aria-label="Search">
 					 	<button class="btn btn-transparent border0 focus-none" type="submit">

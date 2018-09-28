@@ -8,6 +8,7 @@
    <jsp:param value="" name="pageTitle"/>
 </jsp:include>
 
+<span class="font30 blue bold">01</span> <span class="font25 bold">장바구니 목록</span>
 <table class="table tblBorderBottom" id="tblBasketList">
 	<thead class="thead-light">
 		<tr>
@@ -30,23 +31,26 @@
 	            <td class="tbl-td">
 	           		<div id="tbl-img-row">
 	                	<img class="bookImage marginR10" src="${pageContext.request.contextPath }/resources/img/${i['bookImage']}" alt="">
-	                    <span>[장르] &nbsp; ${i["bookTitle"]}</span>
+	                    <span>[${i["categoryName"]}] &nbsp; ${i["bookTitle"]}</span>
 	                </div>
 	           	</td>
 	            <td class="tbl-td">
+	            	<input type="hidden" value="${i['bookPrice']}" name="bookPrice"/>
 	            	<fmt:formatNumber value="${i['bookPrice']}" type="currency" currencySymbol=""/>원
+	            	<%-- <span class="bookPrice">${i['bookPrice']}</span>원 --%>
 	           	</td>
 	           	<td class="tbl-td">
-	           		<input type="number" class="form-control inline width60" name="bookAmount" value="${i['bookAmount']}" min="1">
+	           		<input type="number" class="form-control inline width60 bookAmount" name="bookAmount" value="${i['bookAmount']}" min="1">
 	           		<button type="button" class="btn btn-light updateBasket">수정</button>
 	            </td>
 	            <td class="tbl-td">
-	            	<input type="hidden" value="${i['bookAmount']*i['bookPrice']}" name="bookPrice" id="bookPrice"/>
-	                <fmt:formatNumber value="${i['bookAmount']*i['bookPrice']}" type="currency" currencySymbol=""/>원
+	            	<input type="hidden" value="${i['bookAmount']*i['bookPrice']}" name="bookPrice"/>
+	                <%-- <fmt:formatNumber value="${i['bookAmount']*i['bookPrice']}" type="currency" currencySymbol=""/>원 --%> 
+	                <span class="amountXprice" >${i['bookAmount']*i['bookPrice']}</span>원
 	            </td>
 	            <td class="tbl-td">
 		            <input type="hidden" value="${i['basketNo'] }" name="basketNo"/>
-		            <button type="button" class="btn btn-outline-success">구매</button> &nbsp;
+		            <button type="button" class="btn btn-outline-success" onclick="window.location.href='${pageContext.request.contextPath }/purchase/purchase.do?basketNo=${i['basketNo'] }&memberId=${memberLoggedIn.memberId }'">구매</button> &nbsp;
 		            <button type="button" class="btn btn-outline-danger deleteBasket">삭제</button>
 	       		</td>
 	        </tr>
@@ -61,9 +65,10 @@
 	</c:if>
 </table> 
 	
-<button type="button" class="btn btn-danger" id="deleteChkItem">선택상품 삭제</button>
+<button type="button" class="btn btn-danger marginBottom100 block" id="deleteChkItem">선택상품 삭제</button>
 
-<table class="table marginTop100">
+<span class="font30 blue bold">02</span> <span class="font25 bold">금액 정보</span>
+<table class="table">
 	<tr>
 		<th>상품금액</th>
 		<th>배송비</th>
@@ -144,92 +149,108 @@ function purchaseChk() {
    } 
 }
 
-$(function() {
-	
-   // 삭제 버튼
-   $(".deleteBasket").click(function() {
-      var basketNo = $(this).parent().find("[name=basketNo]").val();
-      
-      if(confirm("장바구니에서 삭제하시겠습니까?")) {
-         $.ajax({
-            url:"${pageContext.request.contextPath}/basket/deleteBasket.do",
-            data: {
-               basketNo : basketNo
-            },
-            success:function(data) {
-            	location.href = "${pageContext.request.contextPath}/basket/selectBasketList.do?memberId=${memberLoggedIn.memberId }";
-            },
-            error:function(jqxhr, textStatus, errorThrown) {
-            	console.log("ajax처리실패!");
-                console.log(jqxhr);
-                console.log(textStatus);
-                console.log(errorThrown);
-            }
-         });
-      }
-   });
-   
-   // 수량 수정 버튼
-   $(".updateBasket").click(function() {
-      var basketNo = $(this).parent().parent().find("[name=basketNo]").val();
-      var bookAmount = $(this).parent().find("[name=bookAmount]").val();
-      
-      $.ajax({
-         url:"${pageContext.request.contextPath}/basket/updateBasket.do",
-         data: {
-            basketNo : basketNo,
-            bookAmount : bookAmount
-         },
-         success:function(data) {
-        	 location.href = "${pageContext.request.contextPath}/basket/selectBasketList.do?memberId=${memberLoggedIn.memberId }";
-         },
-         error:function(jqxhr, textStatus, errorThrown) {
-        	 console.log("ajax처리실패!");
-             console.log(jqxhr);
-             console.log(textStatus);
-             console.log(errorThrown);
-         }
-      });
-   });
-   
-   // 선택상품 삭제 버튼
-   $("#deleteChkItem").click(function() {
-      var basketNo = "";
-      $("[name=basketList]:checked").filter(function() {
-         basketNo += $(this).parent().parent().find("[name=basketNo]").val();
-         basketNo += "/";
-      });
-      
-      if(basketNo === "") {
-         alert("선택된 상품이 없습니다.");
-      } else {      
-         if(confirm("장바구니에서 삭제하시겠습니까?")) {
-            $.ajax({
-               url:"${pageContext.request.contextPath}/basket/deleteBasket.do",
-               data: {
-                  basketNo : basketNo
-               },
-               success:function(data) {
-            	   location.href = "${pageContext.request.contextPath}/basket/selectBasketList.do?memberId=${memberLoggedIn.memberId }";
-               },
-               error:function(jqxhr, textStatus, errorThrown) {
-                  console.log("ajax처리실패!");
-                  console.log(jqxhr);
-                  console.log(textStatus);
-                  console.log(errorThrown);
-               }
-            });
-         }
-      }
-   });
-});
-
 /* 3자리마다 콤마찍어주기 */
 function addCommaSearch(value) {
 	str = String(value);
     return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
 }
 
+
+$(function() {
+
+	/* $(".bookPrice").text(addCommaSearch(parseInt($(".bookPrice").text()))); */
+	/* $(".amountXprice").text(addCommaSearch(parseInt($(".amountXprice").text()))); */
+	/* $(".updateBasket").trigger("click"); */
+	
+	// 삭제 버튼
+	$(".deleteBasket").click(function() {
+		var basketNo = $(this).parent().find("[name=basketNo]").val();
+		
+		if(confirm("장바구니에서 삭제하시겠습니까?")) {
+	    	$.ajax({
+	        	url:"${pageContext.request.contextPath}/basket/deleteBasket.do",
+	         	data: {
+	            	basketNo : basketNo
+	         	},
+	         	success:function(data) {
+	         		location.href = "${pageContext.request.contextPath}/basket/selectBasketList.do?memberId=${memberLoggedIn.memberId }";
+	         	},
+	         	error:function(jqxhr, textStatus, errorThrown) {
+	         		console.log("ajax처리실패!");
+	            	console.log(jqxhr);
+	             	console.log(textStatus);
+	             	console.log(errorThrown);
+	         	}
+	      	});
+	   	}
+	});
+   
+	// 수량 직접 입력 시
+   	$(".bookAmount").on("blur", function() {
+   		var bookAmount = $(this).val();
+      	
+   		if(!$.isNumeric(bookAmount) || bookAmount < 1) {
+   			alert("수량을 입력하세요.");
+   			$(this).val(1);
+   		}
+   	});
+   
+   
+	// 수량 수정 버튼
+	$(".updateBasket").click(function() { 
+    	var basketNo = $(this).parent().parent().find("[name=basketNo]").val();
+      	var bookAmount = $(this).parent().find("[name=bookAmount]").val();
+      	var bookPrice = $(this).parent().parent().find("[name=bookPrice]").val();
+		var amountXprice = $(this).parent().parent().find(".amountXprice");
+      	$.ajax({
+        	url:"${pageContext.request.contextPath}/basket/updateBasket.do",
+         	data: {
+            	basketNo : basketNo,
+            	bookAmount : bookAmount
+         	},
+         	success:function(data) {
+         		amountXprice.text(addCommaSearch(parseInt(data.bookAmount)*bookPrice));
+         	},
+         	error:function(jqxhr, textStatus, errorThrown) {
+        		console.log("ajax처리실패!");
+             	console.log(jqxhr);
+             	console.log(textStatus);
+             	console.log(errorThrown);
+         	}
+      	});
+   	});
+   
+	// 선택상품 삭제 버튼
+	$("#deleteChkItem").click(function() {
+    	var basketNo = "";
+      	$("[name=basketList]:checked").filter(function() {
+        	basketNo += $(this).parent().parent().find("[name=basketNo]").val();
+         	basketNo += "/";
+      	});
+      
+      	if(basketNo === "") {
+        	alert("선택된 상품이 없습니다.");
+      	} else {      
+        	if(confirm("장바구니에서 삭제하시겠습니까?")) {
+        		$.ajax({
+	           		url:"${pageContext.request.contextPath}/basket/deleteBasket.do",
+               		data: {
+                  		basketNo : basketNo
+               		},
+               		success:function(data) {
+            	   		location.href = "${pageContext.request.contextPath}/basket/selectBasketList.do?memberId=${memberLoggedIn.memberId }";
+               		},
+               		error:function(jqxhr, textStatus, errorThrown) {
+                  		console.log("ajax처리실패!");
+                  		console.log(jqxhr);
+                  		console.log(textStatus);
+                  		console.log(errorThrown);
+               		}
+            	});
+         	}
+      	}
+   	});
+});
 </script> 
 
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>

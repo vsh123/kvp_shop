@@ -25,4 +25,14 @@ public class BasketServiceImpl implements BasketService {
 	public int updateBasket(Map<String, Integer> map) {
 		return basketDAO.updateBasket(map);
 	}
+
+	@Override
+	public int deleteBasket(int basketNo) {
+		return basketDAO.deleteBasket(basketNo);
+	}
+
+	@Override
+	public BasketBook selectOneBasketBook(int basketNo) {
+		return basketDAO.selectOneBasketBook(basketNo);
+	}
 }

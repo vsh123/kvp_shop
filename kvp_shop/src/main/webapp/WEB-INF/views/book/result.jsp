@@ -15,7 +15,7 @@
 
 <img src=${item.bookImage} width="100" height="150"><br>
 isbn = ${item.isbn }<br>
-저자명 = ${item.writerNo }<br>
+저자명 = ${item.writerName }<br>
 도서명 = ${item.bookTitle }<br>
 가격   = ${item.bookPrice }원<br>
 ----------------------------------------------------------------<br>

@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="book">
-	<insert id="insertbook">
+
+	<!--책 정보 DB에 삽입 -->
+	<insert id="insertBook">
 		INSERT INTO BOOK 
 		VALUES (#{isbn},
 			   #{writerName},
@@ -16,13 +18,15 @@
 			   #{bookInfo})
 	</insert>
 	
-	<select id="exist" resultType="_int">
+	<!--해당책이 DB에 저장되어있는지 확인 -->
+	<select id="existBook" resultType="_int">
 		SELECT COUNT(*) AS COUNT 
 		FROM book 
 		WHERE isbn = #{isbn}
 	</select>
 	
-	<select id="findbook" resultMap="book">
+	<!--책 찾기-->
+	<select id="findBook" resultMap="book">
 		SELECT * 
 		FROM book 
 		WHERE isbn = #{isbn}

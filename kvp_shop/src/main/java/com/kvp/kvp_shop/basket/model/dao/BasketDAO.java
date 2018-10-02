@@ -12,4 +12,8 @@ public interface BasketDAO {
 
 	int updateBasket(Map<String, Integer> map);
 
+	int deleteBasket(int basketNo);
+
+	BasketBook selectOneBasketBook(int basketNo);
+
 }

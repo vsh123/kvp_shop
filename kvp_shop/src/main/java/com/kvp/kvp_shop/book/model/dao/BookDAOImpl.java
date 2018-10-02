@@ -33,7 +33,7 @@ public class BookDAOImpl implements BookDAO{
 	//책 찾기
 	@Override
 	public Book findBook(String isbn){
-		return sqlSession.selectList("book.findBook");
+		return (Book) sqlSession.selectList("book.findBook");
 	}
 
 }

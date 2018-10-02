@@ -1,8 +1,11 @@
 package com.kvp.kvp_shop.member.model.service;
 
+import java.util.List;
 import java.util.Map;
 
+import com.kvp.kvp_shop.member.model.vo.Address;
 import com.kvp.kvp_shop.member.model.vo.Member;
+import com.kvp.kvp_shop.member.model.vo.MemberAddress;
 
 
 public interface MemberService {
@@ -18,5 +21,12 @@ public interface MemberService {
 
 	// 아이디로 회원 찾기
 	Member selectOneMemberById(String memberId);
+
+	// 아이디로 회원, 주소 정보 찾기
+	MemberAddress selectOneMemberAddressById(String memberId);
+
+	// 아이디로 회원 주소 찾기
+	List<Address> selectAddressList(String memberId);
+
 
 }

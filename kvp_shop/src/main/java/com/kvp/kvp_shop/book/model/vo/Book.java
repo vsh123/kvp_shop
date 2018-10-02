@@ -11,6 +11,7 @@ public class Book {
 	private int discount;
 	private String bookCategory;
 	private String bookImage;
+	private String bookInfo;
 	
 	public Book() {}
 
@@ -27,6 +28,14 @@ public class Book {
 		this.discount = discount;
 		this.bookCategory = bookCategory;
 		this.bookImage = bookImage;
+	}
+
+	public String getBookInfo() {
+		return bookInfo;
+	}
+
+	public void setBookInfo(String bookInfo) {
+		this.bookInfo = bookInfo;
 	}
 
 	public String getIsbn() {

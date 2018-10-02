@@ -1,6 +1,7 @@
 package com.kvp.kvp_shop.book.controller;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.kvp.kvp_shop.book.model.dao.BookDAO;
 import com.kvp.kvp_shop.book.model.service.BookService;
 import com.kvp.kvp_shop.book.model.vo.Book;
 
@@ -21,21 +23,32 @@ private Logger logger = LoggerFactory.getLogger(getClass());
 	@Autowired
 	private BookService BookService;
 	
+	@Autowired
+	private BookDAO BookDAO;
+	
 
-	@RequestMapping("/book/booksearch.do")
+	@RequestMapping("/book/bookSearch.do")
 	public ModelAndView booksearch(@RequestParam("search") String search) throws Exception {
-		ArrayList<Book> book = new ArrayList<Book>();
-		System.out.println("컨트롤러 변환 전 : "+search);
-		System.out.println("컨트롤러 : "+search);
+		List<Book> book = new ArrayList<Book>();
 		book = BookService.api(search);
-		for(int i=0;i<book.size();i++) {
-			book.get(i).getBookTitle();
-		}
 		
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("book/result");
 		mav.addObject("book",book);
 		return mav;
+	}
+	
+	@RequestMapping("/book/bookDetails.do")
+	public ModelAndView bookDetail(@RequestParam("isbn") String isbn) throws Exception {
+			System.out.println("상세 정보 페이지");
+			Book book = BookDAO.findBook(isbn);
+			List<String> list = BookService.crawling(book.getBookInfo());	
+			
+			ModelAndView mav = new ModelAndView();
+			mav.setViewName("book/result2");
+			mav.addObject("book",book);
+			mav.addObject("info", list);
+			return mav;
 	}
 
 }

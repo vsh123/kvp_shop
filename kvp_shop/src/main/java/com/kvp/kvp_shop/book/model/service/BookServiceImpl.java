@@ -37,10 +37,10 @@ public class BookServiceImpl implements BookService{
 		List<String> str = new ArrayList<String>();
         Document doc = Jsoup.connect(URL).get();
         String bookinfo, authorinfo, index;
-        Elements elem = doc.select("div#bookIntroContent");		//내용 설명
+        Elements elem = doc.select("div#bookIntroContent");		//내용 설명{bookInfo}
         elem.select("br").append("\\n");
         bookinfo = elem.text().replaceAll("\\\\n","\n");
-        Elements elem2 = doc.select("div#authorIntroContent");		//저자 소개
+        Elements elem2 = doc.select("div#authorIntroContent");		//저자 소개 ?
         elem2.select("br").append("\\n");
         authorinfo = elem2.text().replaceAll("\\\\n","\n");
         Elements elem3 = doc.select("div#tableOfContentsContent");		//목차
@@ -135,7 +135,7 @@ public class BookServiceImpl implements BookService{
 				Book book = new Book();
 				JSONObject tmp = (JSONObject)item.get(i);
 				book.setBookTitle(((String)tmp.get("title")).replace("<b>","").replace("</b>",""));
-			//	book.setlink((String)tmp.get("link"));
+				book.setBookInfo((String)tmp.get("link"));
 				book.setBookImage((String)tmp.get("image"));
 				book.setWriterName((String)tmp.get("author"));
 				book.setBookPrice(Integer.valueOf((String) tmp.get("price")));

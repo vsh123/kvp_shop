@@ -13,11 +13,13 @@
 
 <c:forEach items="${book}" var="item">
 
-<img src=${item.bookImage} width="100" height="150"><br>
-isbn = ${item.isbn }<br>
-저자명 = ${item.writerName }<br>
-도서명 = ${item.bookTitle }<br>
-가격   = ${item.bookPrice }원<br>
+<a href="${pageContext.request.contextPath }/book/bookDetails.do?isbn=${item.isbn}">
+		<img src=${item.bookImage} width="100" height="150"><br>
+		isbn = ${item.isbn }<br>
+		저자명 = ${item.writerName }<br>
+		도서명 = ${item.bookTitle }<br>
+		가격   = ${item.bookPrice }원<br>
+</a>
 ----------------------------------------------------------------<br>
 </c:forEach>
 Result 페이지 <br />

@@ -15,7 +15,7 @@
 			   #{discount},
 			   0,
 			   #{bookImage},
-			   #{bookInfo})
+			   )
 	</insert>
 	
 	<!--해당책이 DB에 저장되어있는지 확인 -->
